@@ -1,0 +1,90 @@
+main()
+{
+   clear
+   echo "Menu de opcoes"
+   echo ""
+   echo "1. Copiar"
+   echo "2. Compactar"
+   echo "5. Apagar"
+   
+   echo "0. sair"
+   echo ""
+   echo -n "Sua opção: "
+   read OPCAO
+   case $OPCAO in 
+      1) copiar;;
+      2) compactarGz;;
+     
+      
+      5) apagar;;
+      
+      0) exit;;
+      *) echo "Opção inválida"; clear; main;;
+   esac
+}
+
+copiar()
+{ clear
+  echo -n "Digite o diretorio onde esta o arquivo a ser copiado"
+  read COPIAR
+  echo -n "Digite o nome do arquivo"
+  read ARQUIVO
+  COPIAR="$DIRETORIO/$ARQUIVO"
+  cp -rf $ARQUIVO $DIRETORIO
+   if [ $? -eq 0 ]; then
+           
+           echo "Arquivo copiado com sucesso"
+           sleep 2
+           clear
+        else
+            echo "Arquivo não foi copiado"
+            clear
+        fi
+main
+
+}
+
+compactarGz()
+{
+        clear
+        echo -n "Digite o diretorio onde esta o arquivo:"
+        read DIRETORIO
+        echo -n "Digite o nome do arquivo: "
+        read ARQUIVO
+        COMPACTAR="$DIRETORIO/$ARQUIVO"
+
+        tar -czf $ARQUIVO.tar.gz $COMPACTAR 2> /dev/null
+        if [ $? -eq 0 ]; then
+           
+           echo "Arquivo compactado"
+           sleep 2
+           clear
+        else
+            echo "Arquivo não foi compactado"
+            clear
+        fi
+main
+}
+
+
+apagar()
+{
+        clear
+        echo -n "Digite o diretorio onde esta o arquivo: "
+        read DIRETORIO
+        echo -n "Digite o nome do arquivo.tar: "
+        read ARQUIVO
+        CAMINHO="$DIRETORIO/$ARQUIVO"
+        rm -r $CAMINHO
+        if [ $? -eq 0 ]; then
+          echo "Arquivo deletado com sucesso."
+        else
+          echo "Erro! arquivo não foi deletado"
+        fi
+        sleep 2
+        clear
+        main
+}
+
+
+main
